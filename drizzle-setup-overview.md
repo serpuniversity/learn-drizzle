@@ -1,6 +1,6 @@
 # Drizzle Setup Overview / SOP
 
-## 1. Overview
+## Overview
 
 ```
 📦 <project root>
@@ -16,7 +16,7 @@
 
 ```
 
-## 2. Parts
+## Parts
 
 - `.env` - db connection secrets
 - `drizzle.config.ts` - db configuration settings (contains all the information about your database connection, migration folder and schema files.)
@@ -25,7 +25,7 @@
 - commands...
 
 
-## 3. Steps
+## Steps
 
 1. Env - Create a .env file in the root of your project and add your database connection variable:
 2. Install
@@ -34,13 +34,13 @@
 5. Connect
 6. Commands
 
-### 1. Env
+### Env
 
-### 2. Install
+### Install
 
 `pnpm i drizzle-orm drizzle-kit drizzle-zod zod`
 
-### 3. Config
+### Config
 
 `drizzle.config.ts`
 1. `dialect` - flavor of SQL
@@ -77,3 +77,20 @@ export const usersTable = pgTable("users", {
   email: varchar({ length: 255 }).notNull().unique(),
 });
 ```
+
+### Connect
+
+- `useDrizzle()` server composable to interact with the database: https://hub.nuxt.com/docs/recipes/drizzle#seed-the-database-optional
+
+
+### Commands
+
+- `"db:generate": "drizzle-kit generate"`: When running the npm run db:generate command, drizzle-kit will generate the migrations based on server/database/schema.ts and save them in the server/database/migrations directory. Migrations created with npm run db:generate are automatically applied during deployment, preview and when starting the development server.
+
+
+#### Seeding the DB
+
+You can [add a server task](https://hub.nuxt.com/docs/recipes/drizzle#seed-the-database-optional) to populate your database with initial data.
+1. Update your nuxt.config.js
+2. Create a new file containing the task
+3. To run the seed task, start your dev server and open the Nuxt DevTools. Go to Tasks and you will see the db:seed task ready to run. This will add the seed data to your database and give you the first users to work with.
